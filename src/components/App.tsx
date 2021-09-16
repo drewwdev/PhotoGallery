@@ -1,39 +1,61 @@
 import React from 'react'
 import objects from '../objects.json'
 
+type objectType = {
+  object: {
+    title: string
+    description: string
+    photos: [
+      {
+        title: string
+        imageURL: string
+        sourceURL: string
+      }
+    ]
+  }
+}
+
 export function App() {
-  const panda = objects.pandas
-  const pandasTitle = panda.title
-  const pandasDescription = panda.description
-  const pandaPhotos = panda.photos
-  const firstPanda = pandaPhotos[0]
-  const firstPandaPhoto = firstPanda.imageURL
-
-  const miniatures = objects.miniatures
-  const miniaturesTitle = miniatures.title
-  const miniaturesDescription = miniatures.description
-  const miniaturePhotos = miniatures.photos
-  const firstMiniature = miniaturePhotos[0]
-  const firstMiniaturePhoto = firstMiniature.imageURL
-
   return (
     <div>
-      <header>
-        Things Jason likes
-        <div className="title">
-          A Photo Gallery of Jason L Perry's favorite things
+      <header className="header">
+        <div className="header-body">
+          <div className="container">
+            <h1 className="title">
+              <a href="/">Things I Like</a>
+            </h1>
+            <h2 className="description">A Photo Gallery by Jason L Perry</h2>
+          </div>
         </div>
       </header>
-      <main>
-        <div className="pandas">
-          {pandasTitle}
-          <div className="pandadescription">{pandasDescription}</div>
-          <img src={firstPandaPhoto} width="300"></img>
-        </div>
-        <div className="miniatures">
-          {miniaturesTitle}
-          <div className="miniaturedescription">{miniaturesDescription}</div>
-          <img src={firstMiniaturePhoto} width="300"></img>
+      <main className="main">
+        <div className="main-body">
+          <div className="columns is-mobile">
+            {Object.keys(objects).map((object) => {
+              return (
+                <div key={object} className="column">
+                  <div className="card">
+                    <div className="card-content">
+                      <div className="content">
+                        <h2>
+                          <a href="/pandas">{objects[object].title}</a>
+                        </h2>
+                        <p>{objects[object].description}</p>
+                      </div>
+                    </div>
+                    <div className="card-image">
+                      <figure className="image">
+                        <img
+                          src={objects[object].photos[0].imageURL}
+                          alt={objects[object].photos[0].title}
+                        />
+                      </figure>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </main>
     </div>
